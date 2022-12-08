@@ -106,6 +106,7 @@
 			// 
 			// RunOnStartupButton
 			// 
+			this.RunOnStartupButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.RunOnStartupButton.Location = new System.Drawing.Point(12, 411);
 			this.RunOnStartupButton.Name = "RunOnStartupButton";
 			this.RunOnStartupButton.Size = new System.Drawing.Size(120, 23);

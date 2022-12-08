@@ -160,7 +160,8 @@ namespace RecurringFileRemover
 
 		private void MainForm_Shown(object sender, EventArgs e)
 		{
-			MinimizeToTray();
+			if(RunsAtStartup())
+				MinimizeToTray();
 		}
 
 
