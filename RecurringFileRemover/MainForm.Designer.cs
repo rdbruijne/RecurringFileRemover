@@ -62,7 +62,7 @@
 			// 
 			this.TrayIcon.ContextMenuStrip = this.TrayMenuStrip;
 			this.TrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TrayIcon.Icon")));
-			this.TrayIcon.Text = "Shortcut Remover";
+			this.TrayIcon.Text = "Recurring File Remover";
 			this.TrayIcon.Visible = true;
 			// 
 			// TrayMenuStrip

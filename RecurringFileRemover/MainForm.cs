@@ -27,6 +27,9 @@ namespace RecurringFileRemover
 			UpdateIntervalUpDown();
 			UpdateRunOnStartupButtonText();
 
+			// run removal on launch
+			ExecuteCleanup();
+
 			// run removal task
 			var task = Task.Run(async () => await RemoverTask());
 		}
@@ -101,18 +104,25 @@ namespace RecurringFileRemover
 
 
 
+		private void ExecuteCleanup()
+		{
+			foreach (string path in pathsToRemove)
+			{
+				if (File.Exists(path))
+					File.Delete(path);
+				else if (Directory.Exists(path))
+					Directory.Delete(path, true);
+			}
+		}
+
+
+
 		private async Task RemoverTask()
 		{
 			removeInterval = new(TimeSpan.FromSeconds(intervalInSeconds));
 			while (await removeInterval.WaitForNextTickAsync())
 			{
-				foreach (string path in pathsToRemove)
-				{
-					if (File.Exists(path))
-						File.Delete(path);
-					else if(Directory.Exists(path))
-						Directory.Delete(path, true);
-				}
+				ExecuteCleanup();
 				removeInterval = new(TimeSpan.FromSeconds(intervalInSeconds));
 			}
 		}
