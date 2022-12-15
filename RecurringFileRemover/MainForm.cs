@@ -25,7 +25,7 @@ namespace RecurringFileRemover
 			// update UI elements
 			UpdateListview();
 			UpdateIntervalUpDown();
-			UpdateRunOnStartupButtonText();
+			UpdateAddToStartupButtonText();
 
 			// run removal on launch
 			ExecuteCleanup();
@@ -179,6 +179,13 @@ namespace RecurringFileRemover
 		//---------------------------------------------------------------------------------------------------------------------------
 		// Notify Icon Context Meny Events
 		//---------------------------------------------------------------------------------------------------------------------------
+		private void MenuItem_RunNow_Click(object sender, EventArgs e)
+		{
+			ExecuteCleanup();
+		}
+
+
+
 		private void MenuItem_Restore_Click(object sender, EventArgs e)
 		{
 			RestoreFromTray();
@@ -257,6 +264,16 @@ namespace RecurringFileRemover
 
 
 		//---------------------------------------------------------------------------------------------------------------------------
+		// Run Now
+		//---------------------------------------------------------------------------------------------------------------------------
+		private void RunNowButton_Click(object sender, EventArgs e)
+		{
+			ExecuteCleanup();
+		}
+
+
+
+		//---------------------------------------------------------------------------------------------------------------------------
 		// Run on Startup
 		//---------------------------------------------------------------------------------------------------------------------------
 		private static bool RunsAtStartup()
@@ -271,14 +288,14 @@ namespace RecurringFileRemover
 
 
 
-		private void UpdateRunOnStartupButtonText()
+		private void UpdateAddToStartupButtonText()
 		{
-			RunOnStartupButton.Text = RunsAtStartup() ? "Disable on startup" : "Run on startup";
+			AddToStartupButton.Text = RunsAtStartup() ? "Remove from startup" : "Add to startup";
 		}
 
 
 
-		private void RunOnStartupButton_Click(object sender, EventArgs e)
+		private void ToggleRunAtStartup()
 		{
 			RegistryKey? key = Registry.CurrentUser.OpenSubKey(StartupRegKey, true);
 			if (key == null)
@@ -289,7 +306,14 @@ namespace RecurringFileRemover
 			else
 				key.SetValue(AppName, Application.ExecutablePath);
 
-			UpdateRunOnStartupButtonText();
+			UpdateAddToStartupButtonText();
+		}
+
+
+
+		private void AddToStartupButton_Click(object sender, EventArgs e)
+		{
+			ToggleRunAtStartup();
 		}
 	}
 }
